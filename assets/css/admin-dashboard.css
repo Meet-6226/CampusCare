@@ -611,10 +611,24 @@ button {
   font-weight: 600;
   margin-top: 8px;
   transition: background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  line-height: 1;
 }
 
 .modal-submit:hover {
   background: #d4222a;
+}
+
+.modal-submit .material-symbols-outlined {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.modal-submit__label {
+  display: inline-block;
 }
 
 @media (max-width: 1100px) {

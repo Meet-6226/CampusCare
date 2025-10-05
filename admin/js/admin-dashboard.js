@@ -486,7 +486,7 @@ const setupNotificationEventListeners = () => {
       const title = document.getElementById('notification-title').value.trim();
       const body = document.getElementById('notification-body').value.trim();
       const type = document.getElementById('notification-type').value;
-      const clickAction = document.getElementById('notification-url').value.trim();
+      const clickAction = '';
 
       if (!title || !body) {
         alert('Please provide both a title and message for the notification.');
@@ -497,7 +497,15 @@ const setupNotificationEventListeners = () => {
       const submitBtn = document.getElementById('notification-submit-btn');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="material-symbols-outlined">hourglass_empty</span> Sending...';
+        submitBtn.classList.add('is-loading');
+        const label = submitBtn.querySelector('.modal-submit__label');
+        if (label) {
+          label.textContent = 'Sending…';
+        }
+        const icon = submitBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = 'hourglass_empty';
+        }
       }
 
       try {
@@ -511,7 +519,6 @@ const setupNotificationEventListeners = () => {
           document.getElementById('notification-title').value = '';
           document.getElementById('notification-body').value = '';
           document.getElementById('notification-type').value = 'general';
-          document.getElementById('notification-url').value = '';
         } else {
           alert(`Failed to send broadcast: ${result.error}`);
         }
@@ -522,7 +529,15 @@ const setupNotificationEventListeners = () => {
         // Re-enable submit button
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span class="material-symbols-outlined">campaign</span> Broadcast to All Users';
+          submitBtn.classList.remove('is-loading');
+          const label = submitBtn.querySelector('.modal-submit__label');
+          if (label) {
+            label.textContent = 'Broadcast to All Users';
+          }
+          const icon = submitBtn.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'campaign';
+          }
         }
       }
     });
