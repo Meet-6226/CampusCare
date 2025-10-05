@@ -189,10 +189,8 @@ export async function emergencySOS(payload = {}) {
 }
 
 // SOS Success Modal Functions
-const sosSuccessModal = document.getElementById('sos-success-modal');
-const closeSosModalBtn = document.getElementById('close-sos-modal-btn');
-
 function openSosSuccessModal() {
+    const sosSuccessModal = document.getElementById('sos-success-modal');
     if (sosSuccessModal) {
         sosSuccessModal.classList.remove('hidden');
         sosSuccessModal.classList.add('flex');
@@ -201,6 +199,7 @@ function openSosSuccessModal() {
 }
 
 function closeSosSuccessModal() {
+    const sosSuccessModal = document.getElementById('sos-success-modal');
     if (sosSuccessModal) {
         sosSuccessModal.classList.add('hidden');
         sosSuccessModal.classList.remove('flex');
@@ -208,17 +207,22 @@ function closeSosSuccessModal() {
     }
 }
 
-if (closeSosModalBtn) {
-    closeSosModalBtn.addEventListener('click', closeSosSuccessModal);
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const sosSuccessModal = document.getElementById('sos-success-modal');
+    const closeSosModalBtn = document.getElementById('close-sos-modal-btn');
 
-if (sosSuccessModal) {
-    sosSuccessModal.addEventListener('click', (event) => {
-        if (event.target === sosSuccessModal) {
-            closeSosSuccessModal();
-        }
-    });
-}
+    if (closeSosModalBtn) {
+        closeSosModalBtn.addEventListener('click', closeSosSuccessModal);
+    }
+
+    if (sosSuccessModal) {
+        sosSuccessModal.addEventListener('click', (event) => {
+            if (event.target === sosSuccessModal) {
+                closeSosSuccessModal();
+            }
+        });
+    }
+});
 
 if (sosButton) {
     sosButton.addEventListener('click', async () => {
