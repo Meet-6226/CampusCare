@@ -8,7 +8,6 @@ functions/node_modules/
 .env.production
 .env.development
 
-
 # IDE
 .vscode/
 .idea/
