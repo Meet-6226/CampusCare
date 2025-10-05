@@ -188,6 +188,38 @@ export async function emergencySOS(payload = {}) {
     });
 }
 
+// SOS Success Modal Functions
+const sosSuccessModal = document.getElementById('sos-success-modal');
+const closeSosModalBtn = document.getElementById('close-sos-modal-btn');
+
+function openSosSuccessModal() {
+    if (sosSuccessModal) {
+        sosSuccessModal.classList.remove('hidden');
+        sosSuccessModal.classList.add('flex');
+        document.body.classList.add('modal-open');
+    }
+}
+
+function closeSosSuccessModal() {
+    if (sosSuccessModal) {
+        sosSuccessModal.classList.add('hidden');
+        sosSuccessModal.classList.remove('flex');
+        document.body.classList.remove('modal-open');
+    }
+}
+
+if (closeSosModalBtn) {
+    closeSosModalBtn.addEventListener('click', closeSosSuccessModal);
+}
+
+if (sosSuccessModal) {
+    sosSuccessModal.addEventListener('click', (event) => {
+        if (event.target === sosSuccessModal) {
+            closeSosSuccessModal();
+        }
+    });
+}
+
 if (sosButton) {
     sosButton.addEventListener('click', async () => {
         if (sosButton.disabled) {
@@ -213,8 +245,12 @@ if (sosButton) {
 
             await emergencySOS(payload);
             console.log('Emergency SOS request sent successfully.');
+            
+            // Show success modal
+            openSosSuccessModal();
         } catch (error) {
             console.error('Error sending SOS request:', error);
+            alert('Failed to send SOS alert. Please try again.');
         } finally {
             sosButton.disabled = false;
             sosButton.classList.remove('is-loading');

@@ -190,6 +190,27 @@
             <!-- Details will be loaded dynamically -->
         </div>
     </div>
+
+    <!-- SOS Success Modal -->
+    <div class="modal-backdrop hidden" id="sos-success-modal">
+        <div class="modal-panel" style="max-width: 480px; text-align: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px;">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(34, 197, 94, 0.15); display: flex; align-items: center; justify-content: center;">
+                    <span class="material-symbols-outlined" style="font-size: 48px; color: #22c55e;">check_circle</span>
+                </div>
+                <div>
+                    <h2 class="modal-title" style="margin-bottom: 12px; font-size: 24px;">SOS Alert Sent!</h2>
+                    <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin: 0;">
+                        Your emergency alert has been sent to Admin
+                    </p>
+                </div>
+                <button class="modal-submit" id="close-sos-modal-btn" style="max-width: 200px;">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="../assets/js/fcm-service.js"></script>
     <script type="module" src="js/user-dashboard.js"></script>
 </body>
