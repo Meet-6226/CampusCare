@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CampusCare Dashboard</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="../assets/css/admin-dashboard.css" rel="stylesheet" />
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body class="admin-body">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar__header">
+                <div class="admin-brand">
+                    <span class="material-symbols-outlined admin-brand__icon"> security </span>
+                    <h1 class="admin-brand__title">CampusCare</h1>
+                </div>
+            </div>
+            <nav class="admin-nav">
+                <a class="admin-nav-link admin-nav-link--active" href="#">
+                    <span class="material-symbols-outlined"> dashboard </span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-nav-link" href="incidents.html">
+                    <span class="material-symbols-outlined"> report </span>
+                    <span>Incidents</span>
+                </a>
+                <a class="admin-nav-link" href="sos-requests.html">
+                    <span class="material-symbols-outlined"> emergency_home </span>
+                    <span>SOS Requests</span>
+                </a>
+                <a class="admin-nav-link" href="alerts.html">
+                    <span class="material-symbols-outlined"> campaign </span>
+                    <span>Alerts</span>
+                </a>
+            </nav>
+        </aside>
+        <div class="admin-content">
+            <header class="admin-header">
+                <h2 class="admin-title">Dashboard</h2>
+                <div class="admin-header__actions">
+                    <button class="icon-button">
+                        <span class="material-symbols-outlined"> notifications </span>
+                    </button>
+                    <button class="primary-btn primary-btn--ghost" id="admin-logout-btn">
+                        <span class="material-symbols-outlined">logout</span>
+                        Logout
+                    </button>
+                    <div class="admin-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAexPUwbjth7UARbbClk9Jlb3axsq694UdmtLQj6z3g5u2s9uoalwHIwHvIpcEQ8xd5uHV9LXX8YLh1JfX6qh4zNY5s5loVJFVpBEkjvI1u9jhYMoMUGQ_RrsJzyGO9d6KyiSjVbQxSMxxCaR2BrbNdZtuiZ_uPukbDaa2gSxPN31xqcR9P2bShd_6qZtfRF9saVNdfKV-fCmz1HTY8DjfPsY-oXbLVpfXFXATl_quy5ef-i9Cfrd8CXqmin3mTPwLNUa5VGbHQASo");'>
+                    </div>
+                </div>
+            </header>
+            <main class="admin-main">
+                <section class="admin-section">
+                    <div class="section-heading">
+                        <h3 class="section-title">Ongoing Incidents</h3>
+                        <button class="primary-btn" id="send-notification-btn">
+                            <span class="material-symbols-outlined">campaign</span>
+                            Broadcast
+                        </button>
+                    </div>
+                    <div class="table-card">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Incident ID</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Reported By</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ongoing-incidents-body"></tbody>
+                        </table>
+                        <div id="ongoing-incidents-loading" class="sos-item" style="padding: 12px;">Loading incidents...</div>
+                        <div id="ongoing-incidents-error" class="sos-item sos-item--error" style="display: none; padding: 12px;"></div>
+                        <div id="ongoing-incidents-empty" class="sos-item" style="display: none; padding: 12px;">No active incidents right now.</div>
+                    </div>
+                </section>
+                <section class="admin-grid">
+                    <div class="stat-section">
+                        <div class="section-heading">
+                            <h3 class="section-title">Dashboard Functions</h3>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-card">
+                                <p class="stat-card__label">Incidents (Last 30 Days)</p>
+                                <p class="stat-card__value" id="recent-incidents-count">0</p>
+                            </div>
+                            <div class="stat-card stat-card--accent">
+                                <p class="stat-card__label">Active SOS Requests</p>
+                                <p class="stat-card__value" id="active-sos-count">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sos-card">
+                        <div class="sos-card__header">
+                            <h4 class="sos-card__title">SOS Requests Monitor</h4>
+                            <div class="sos-card__live">
+                                <span class="material-symbols-outlined"> emergency_home </span>
+                                <span>Live</span>
+                            </div>
+                        </div>
+                        <div class="sos-list">
+                            <div class="sos-item" id="sos-loading">
+                                <span>Loading SOS requests...</span>
+                            </div>
+                            <div class="sos-item sos-item--error" id="sos-error" style="display: none;"></div>
+                            <div class="sos-item" id="sos-empty" style="display: none;">
+                                <span>No SOS requests at the moment.</span>
+                            </div>
+                            <div id="sos-requests-container"></div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Broadcast Modal -->
+    <div class="modal-overlay" id="notification-modal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Broadcast Message</h3>
+                <button class="modal-close" id="notification-modal-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="modal-form" id="notification-modal-form">
+                <div class="form-field">
+                    <label for="notification-title">Title</label>
+                    <input id="notification-title" type="text" placeholder="Emergency Alert" required />
+                </div>
+                <div class="form-field">
+                    <label for="notification-body">Message</label>
+                    <textarea id="notification-body" rows="3" placeholder="Campus-wide safety alert..." required></textarea>
+                </div>
+                <div class="form-field">
+                    <label for="notification-type">Message Type</label>
+                    <select id="notification-type">
+                        <option value="general">General Alert</option>
+                        <option value="emergency">Emergency Alert</option>
+                        <option value="maintenance">Maintenance Notice</option>
+                        <option value="event">Event Notification</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="notification-url">Click Action URL (Optional)</label>
+                    <input id="notification-url" type="url" placeholder="/admin/incidents.html" />
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="primary-btn primary-btn--ghost" id="notification-modal-cancel">Cancel</button>
+                    <button class="modal-submit" type="submit" id="notification-submit-btn">
+                        <span class="material-symbols-outlined">campaign</span>
+                        Broadcast to All Users
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-messaging-compat.js"></script>
+    <script type="module" src="../assets/js/fcm-service.js"></script>
+    <script type="module" src="js/admin-dashboard.js"></script>
+
+</body>
+
+</html>

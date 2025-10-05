@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>CampusCare</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="../assets/css/user-dashboard.css" rel="stylesheet" />
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-messaging-compat.js"></script>
+</head>
+
+<body class="user-dashboard-body">
+    <div class="dashboard-shell">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-brand">
+                <span class="material-symbols-outlined sidebar-brand__icon">security</span>
+                <div>
+                    <h1 class="sidebar-brand__title">CampusCare</h1>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="sidebar-link sidebar-link--active" href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="sidebar-link" href="user-incidents.html">
+                    <span class="material-symbols-outlined">report</span>
+                    <span>Incidents</span>
+                </a>
+            </nav>
+            
+        </aside>
+
+        <div class="dashboard-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h2 class="page-title">CampusCare Dashboard</h2>
+                </div>
+                <div class="header-actions">
+                    <button class="header-icon-button" type="button">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="header-logout-btn" id="user-logout-btn" type="button">
+                        <span class="material-symbols-outlined">logout</span>
+                        Logout
+                    </button>
+                    <div class="header-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAeIjp222ZA7o5FZi3suAlOnobEN-ZUUftm8X6pEojSTgEhsyve3GMGrrRG8vua8O-8x3Xwba3Ukd5nd-9hhTp4QH-IG6ZH1QzRqSt6_f4G123wJ1e7fMF2oK4OLmgVeSmrvCB8CUUJMvlxEN2fX2310O10LyoljhQ4Ltn5btcYFgP5mA0QZcJAWmTqgzpX0B0vZ28E86pg-dlaEJ9CAsoFGRGP2Tqrd17yHMB4NE_gYFghxkpZDFJhAp13hUwO0Zc9wJrNVNy1mL8");'>
+                    </div>
+                </div>
+            </header>
+
+            <main class="dashboard-main">
+                <div class="dashboard-container">
+                    <section class="section-card section-card--actions">
+                        <div class="section-card__header">
+                            <h2 class="section-title">Quick Actions</h2>
+                            <p class="section-card__subtitle">Access emergency tools instantly.</p>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="sos-button" id="sos-button">
+                                <span class="material-symbols-outlined">sos</span>
+                                <span>Emergency SOS</span>
+                            </button>
+                            <button class="secondary-button" id="report-issue-btn">Report New Incidents</button>
+                        </div>
+                    </section>
+
+                    <section class="section-card">
+                        <div class="section-card__header">
+                            <h2 class="section-title">Ongoing Incidents</h2>
+                            <p class="section-card__subtitle">Latest updates from CampusCare security.</p>
+                        </div>
+                        <div class="issue-list">
+                            <!-- Incidents will be loaded dynamically -->
+                        </div>
+                    </section>
+
+                    <section class="section-card">
+                        <div class="section-card__header">
+                            <h2 class="section-title">Safety Score Card</h2>
+                            <p class="section-card__subtitle">Safety performance across campus zones.</p>
+                        </div>
+                        <div class="score-card">
+                            <table class="score-table">
+                                <thead>
+                                    <tr>
+                                        <th>Zone</th>
+                                        <th>Safety Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="score-metric">
+                                                <span>Academic Zone</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="score-metric">
+                                                <div class="score-progress">
+                                                    <div class="score-progress__bar" style="width: 85%;"></div>
+                                                </div>
+                                                <span class="score-metric__value">85</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="score-metric">
+                                                <span>Residential Zone</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="score-metric">
+                                                <div class="score-progress">
+                                                    <div class="score-progress__bar" style="width: 92%;"></div>
+                                                </div>
+                                                <span class="score-metric__value">92</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="score-metric">
+                                                <span>Recreational Zone</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="score-metric">
+                                                <div class="score-progress">
+                                                    <div class="score-progress__bar" style="width: 78%;"></div>
+                                                </div>
+                                                <span class="score-metric__value">78</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    <div class="modal-backdrop hidden" id="report-issue-modal">
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h2 class="modal-title">Report a New Issue</h2>
+                <button class="modal-close" id="close-modal-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="modal-form" id="report-issue-form">
+                <div class="modal-field">
+                    <label for="issue-type">Issue Type</label>
+                    <select id="issue-type" name="issue-type">
+                        <option>Theft</option>
+                        <option>Vandalism</option>
+                        <option>Safety Hazard</option>
+                        <option>Suspicious Activity</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="modal-field">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"
+                        placeholder="Provide a detailed description of the issue..." rows="4"></textarea>
+                </div>
+                <div class="modal-field">
+                    <label for="location">Location</label>
+                    <input id="location" name="location" placeholder="e.g., Near Main Library Entrance" type="text" />
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-submit" id="submit-issue-btn" type="submit">Submit Issue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal-backdrop hidden" id="issue-details-modal">
+        <div class="modal-panel" style="max-width: 640px; max-height: 90vh; overflow-y: auto;">
+            <!-- Details will be loaded dynamically -->
+        </div>
+    </div>
+    <script type="module" src="../assets/js/fcm-service.js"></script>
+    <script type="module" src="js/user-dashboard.js"></script>
+</body>
+
+<script>
+</script>
+</html>

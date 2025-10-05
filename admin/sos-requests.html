@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOS Requests | Campus Safety</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/admin-dashboard.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__header">
+        <div class="admin-brand">
+          <span class="material-symbols-outlined admin-brand__icon">security</span>
+          <h1 class="admin-brand__title">CampusCare</h1>
+        </div>
+      </div>
+      <nav class="admin-nav">
+        <a class="admin-nav-link" href="admin-dashboard.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="admin-nav-link" href="incidents.html">
+          <span class="material-symbols-outlined">report</span>
+          <span>Incidents</span>
+        </a>
+        <a class="admin-nav-link admin-nav-link--active" href="#">
+          <span class="material-symbols-outlined">emergency_home</span>
+          <span>SOS Requests</span>
+        </a>
+        <a class="admin-nav-link" href="alerts.html">
+          <span class="material-symbols-outlined">campaign</span>
+          <span>Alerts</span>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="admin-content">
+      <header class="admin-header">
+        <h2 class="admin-title">SOS Requests</h2>
+        <div class="admin-header__actions">
+          <button class="icon-button" type="button">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button class="primary-btn primary-btn--ghost" id="admin-logout-btn" type="button">
+            <span class="material-symbols-outlined">logout</span>
+            Logout
+          </button>
+          <div class="admin-avatar"
+            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAexPUwbjth7UARbbClk9Jlb3axsq694UdmtLQj6z3g5u2s9uoalwHIwHvIpcEQ8xd5uHV9LXX8YLh1JfX6qh4zNY5s5loVJFVpBEkjvI1u9jhYMoMUGQ_RrsJzyGO9d6KyiSjVbQxSMxxCaR2BrbNdZtuiZ_uPukbDaa2gSxPN31xqcR9P2bShd_6qZtfRF9saVNdfKV-fCmz1HTY8DjfPsY-oXbLVpfXFXATl_quy5ef-i9Cfrd8CXqmin3mTPwLNUa5VGbHQASo");'>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-main">
+        <section class="admin-section">
+          <div class="section-heading">
+            <h3 class="section-title">Recent SOS Activity</h3>
+          </div>
+
+          <div class="table-card">
+            <table class="admin-table" id="sos-table">
+              <thead>
+                <tr>
+                  <th scope="col">Request ID</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Reported By</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Raised</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody id="sos-tbody">
+                <!-- rows inserted via JS -->
+              </tbody>
+            </table>
+            <div id="sos-loading" class="sos-item" style="padding:12px;">Loading SOS requests...</div>
+            <div id="sos-error" class="sos-item sos-item--error" style="display:none; padding:12px;"></div>
+            <div id="sos-empty" class="sos-item" style="display:none; padding:12px;">No SOS requests found.</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="js/sos-requests.js"></script>
+</body>
+</html>

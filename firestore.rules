@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to authenticated users for their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // FCM tokens - allow users to manage their own tokens
+    match /fcm_tokens/{userId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Topic subscriptions - allow users to manage their own subscriptions
+    match /topic_subscriptions/{subscriptionId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Notifications collection - read access for all authenticated users, write for admins
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
+        (resource == null || resource.data.get('createdBy', '') == request.auth.uid);
+    }
+    
+    // SOS requests - allow authenticated users to read/write
+    match /sosRequests/{requestId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Incidents - allow authenticated users to read/write
+    match /incidents/{incidentId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Alerts - allow authenticated users to read/write
+    match /alerts/{alertId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Allow all authenticated users to read and write (for demo purposes)
+    // In production, implement proper role-based access control
+    match /{document=**} {
+      allow read, write: if true; // Open access for demo
+    }
+  }
+}

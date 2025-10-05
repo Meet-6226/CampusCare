@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CampusCare Login</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="assets/css/login.css" rel="stylesheet" />
+</head>
+
+<body class="login-body">
+    <div class="login-shell">
+        <header class="login-header">
+            <div class="login-header__inner">
+                <a class="login-brand" href="index.html">
+                    <div class="login-logo">
+                        <span class="material-symbols-outlined sidebar-brand__icon">security</span>
+                    </div>
+                    <h1>CampusCare</h1>
+                </a>
+            </div>
+        </header>
+
+        <main class="login-main">
+            <div class="login-card">
+                <div class="login-card__head">
+                    <h2 class="login-card__title">Welcome Back</h2>
+                    <p class="login-card__subtitle">Sign in to manage campus safety</p>
+                </div>
+                <form action="#" class="login-form" id="login-form" method="POST">
+                    <input name="remember" type="hidden" value="true" />
+                    <div class="input-stack">
+                        <div class="form-group">
+                            <label class="sr-only" for="campus-id">Campus ID</label>
+                            <div class="input-group">
+                                <span class="material-symbols-outlined input-icon">badge</span>
+                                <input class="input-field" id="login-roll" name="roll"
+                                    placeholder="Campus ID"
+                                    required type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="password">Password</label>
+                            <div class="input-group">
+                                <span class="material-symbols-outlined input-icon">lock</span>
+                                <input autocomplete="current-password" class="input-field" id="login-password"
+                                    name="password" placeholder="Password" required type="password" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login-form__footer">
+                        <span></span>
+                        <a class="login-link" href="#">Forgot your password?</a>
+                    </div>
+                    <button class="login-submit" id="login-submit" type="submit">Login</button>
+                    <p class="login-error" id="login-error" role="alert" style="display: none;">
+                        Invalid credentials. Please check your roll number and password.
+                    </p>
+                </form>
+                <div class="login-meta">
+                    <p>Toggle role (for demo):
+                        <button class="role-toggle" id="role-toggle">User</button>
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-messaging-compat.js"></script>
+    <script type="module" src="assets/js/fcm-service.js"></script>
+    <script type="module" src="assets/js/login.js"></script>
+</body>
+
+</html>
