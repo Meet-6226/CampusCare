@@ -184,6 +184,29 @@ button {
   pointer-events: none;
 }
 
+.input-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text-soft);
+  background: transparent;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.input-toggle:hover,
+.input-toggle:focus {
+  color: var(--primary);
+  background: rgba(96, 122, 251, 0.12);
+  outline: none;
+}
+
 .input-field {
   width: 100%;
   padding: 14px 16px 14px 44px;

@@ -500,60 +500,63 @@ function updateDetailsModal(incident, incidentId) {
     const updatedAt = incident.updatedAt?.toDate ? incident.updatedAt.toDate() : createdAt;
 
     const modalContent = `
-        <div class="modal-header" style="border-bottom: 1px solid var(--primary-border); padding-bottom: 20px; margin-bottom: 24px;">
-            <div style="flex: 1;">
-                <h2 class="modal-title" style="margin-bottom: 8px;">${escapeHtml(incident.type || 'Incident Details')}</h2>
+        <div class="details-modal__header">
+            <div class="details-modal__title">
+                <h2 class="modal-title">${escapeHtml(incident.type || 'Incident Details')}</h2>
                 <span class="issue-badge ${badgeClass}">${badgeText}</span>
             </div>
-            <button class="modal-close" id="close-details-modal-btn">
-                <span class="material-symbols-outlined">close</span>
+            <button class="modal-close details-modal__close" id="close-details-modal-btn" aria-label="Close incident details">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
             </button>
         </div>
-        
-        <div style="display: flex; flex-direction: column; gap: 24px;">
-            <div>
-                <h3 class="section-subtitle" style="font-size: 16px; margin-bottom: 16px; color: var(--text-strong);">Details</h3>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <p style="font-size: 13px; font-weight: 500; color: var(--text-soft); margin: 0;">Incident ID</p>
-                        <p style="font-size: 14px; color: var(--text-regular); margin: 0;">${escapeHtml(incident.incidentId || incidentId)}</p>
+
+        <div class="details-modal__body">
+            <section class="details-section">
+                <h3 class="details-section__title">Details</h3>
+                <div class="details-grid">
+                    <div class="details-meta">
+                        <p class="details-meta__label">Incident ID</p>
+                        <p class="details-meta__value">${escapeHtml(incident.incidentId || incidentId)}</p>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <p style="font-size: 13px; font-weight: 500; color: var(--text-soft); margin: 0;">Location</p>
-                        <p style="font-size: 14px; color: var(--text-regular); margin: 0;">${escapeHtml(incident.location || 'Not specified')}</p>
+                    <div class="details-meta">
+                        <p class="details-meta__label">Location</p>
+                        <p class="details-meta__value">${escapeHtml(incident.location || 'Not specified')}</p>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <p style="font-size: 13px; font-weight: 500; color: var(--text-soft); margin: 0;">Reported By</p>
-                        <p style="font-size: 14px; color: var(--text-regular); margin: 0;">${escapeHtml(incident.reportedBy ? String(incident.reportedBy) : 'Anonymous')}</p>
+                    <div class="details-meta">
+                        <p class="details-meta__label">Reported By</p>
+                        <p class="details-meta__value">${escapeHtml(incident.reportedBy ? String(incident.reportedBy) : 'Anonymous')}</p>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <p style="font-size: 13px; font-weight: 500; color: var(--text-soft); margin: 0;">Status</p>
-                        <p style="font-size: 14px; color: var(--text-regular); margin: 0;">${badgeText}</p>
+                    <div class="details-meta">
+                        <p class="details-meta__label">Status</p>
+                        <p class="details-meta__value">${badgeText}</p>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <p style="font-size: 13px; font-weight: 500; color: var(--text-soft); margin: 0;">Created</p>
-                        <p style="font-size: 14px; color: var(--text-regular); margin: 0;">${formatDateTime(createdAt)}</p>
+                    <div class="details-meta">
+                        <p class="details-meta__label">Created</p>
+                        <p class="details-meta__value">${formatDateTime(createdAt)}</p>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <p style="font-size: 13px; font-weight: 500; color: var(--text-soft); margin: 0;">Last Updated</p>
-                        <p style="font-size: 14px; color: var(--text-regular); margin: 0;">${formatDateTime(updatedAt)}</p>
+                    <div class="details-meta">
+                        <p class="details-meta__label">Last Updated</p>
+                        <p class="details-meta__value">${formatDateTime(updatedAt)}</p>
                     </div>
                 </div>
-            </div>
-            
-            <div style="border-top: 1px solid var(--primary-border); padding-top: 20px;">
-                <h3 class="section-subtitle" style="font-size: 16px; margin-bottom: 12px; color: var(--text-strong);">Description</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0;">${escapeHtml(incident.description || 'No description available.')}</p>
-            </div>
-            
+            </section>
+
+            <section class="details-section details-section--divider">
+                <h3 class="details-section__title">Description</h3>
+                <p class="details-description">${escapeHtml(incident.description || 'No description available.')}</p>
+            </section>
+
             ${incident.notes ? `
-            <div style="border-top: 1px solid var(--primary-border); padding-top: 20px;">
-                <h3 class="section-subtitle" style="font-size: 16px; margin-bottom: 12px; color: var(--text-strong);">Additional Notes</h3>
-                <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0;">${escapeHtml(incident.notes)}</p>
-            </div>
+            <section class="details-section details-section--divider">
+                <h3 class="details-section__title">Additional Notes</h3>
+                <p class="details-description">${escapeHtml(incident.notes)}</p>
+            </section>
             ` : ''}
-            
-            ${generateHistoryLog(incident, createdAt, updatedAt)}
+
+            <section class="details-section details-section--divider">
+                <h3 class="details-section__title">History Log</h3>
+                ${generateHistoryLog(incident, createdAt, updatedAt)}
+            </section>
         </div>
     `;
 

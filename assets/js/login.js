@@ -14,6 +14,21 @@ const rollInput = document.getElementById('login-roll');
 const passwordInput = document.getElementById('login-password');
 const submitButton = document.getElementById('login-submit');
 const errorMessage = document.getElementById('login-error');
+const passwordToggleBtn = document.getElementById('toggle-password-visibility');
+
+if (passwordInput && passwordToggleBtn) {
+  passwordToggleBtn.addEventListener('click', () => {
+    const isPassword = passwordInput.getAttribute('type') === 'password';
+    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+    const iconSpan = passwordToggleBtn.querySelector('.material-symbols-outlined');
+    if (iconSpan) {
+      iconSpan.textContent = isPassword ? 'visibility_off' : 'visibility';
+    }
+
+    passwordToggleBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+  });
+}
 
 const showError = (message) => {
   if (!errorMessage) return;
