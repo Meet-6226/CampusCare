@@ -135,6 +135,7 @@ if (reportForm) {
 
             reportForm.reset();
             closeReportModal();
+            openReportSuccessModal();
         } catch (error) {
             console.error('Error reporting issue:', error);
         } finally {
@@ -265,6 +266,8 @@ if (sosButton) {
 const reportIssueBtn = document.getElementById('report-issue-btn');
 const reportModal = document.getElementById('report-issue-modal');
 const closeReportModalBtn = document.getElementById('close-modal-btn');
+const reportSuccessModal = document.getElementById('report-success-modal');
+const closeReportSuccessBtn = document.getElementById('close-report-success-btn');
 
 function closeReportModal() {
     if (reportModal) {
@@ -282,6 +285,22 @@ function openReportModal() {
     }
 }
 
+function openReportSuccessModal() {
+    if (reportSuccessModal) {
+        reportSuccessModal.classList.remove('hidden');
+        reportSuccessModal.classList.add('flex');
+        document.body.classList.add('modal-open');
+    }
+}
+
+function closeReportSuccessModal() {
+    if (reportSuccessModal) {
+        reportSuccessModal.classList.add('hidden');
+        reportSuccessModal.classList.remove('flex');
+        document.body.classList.remove('modal-open');
+    }
+}
+
 if (reportIssueBtn && reportModal && closeReportModalBtn) {
     reportIssueBtn.addEventListener('click', openReportModal);
     closeReportModalBtn.addEventListener('click', closeReportModal);
@@ -291,6 +310,18 @@ if (reportIssueBtn && reportModal && closeReportModalBtn) {
             closeReportModal();
         }
     });
+}
+
+if (reportSuccessModal) {
+    reportSuccessModal.addEventListener('click', (event) => {
+        if (event.target === reportSuccessModal) {
+            closeReportSuccessModal();
+        }
+    });
+}
+
+if (closeReportSuccessBtn) {
+    closeReportSuccessBtn.addEventListener('click', closeReportSuccessModal);
 }
 
 const detailsModal = document.getElementById('issue-details-modal');
